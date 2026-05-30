@@ -29,6 +29,6 @@ compiled_graph = graph.compile()
 
 research_agent = CompiledSubAgent(
     name="research-agent",
-    description="Research agent to know what the homelab community is working on running on their own infrastructure. This is a ReAct agent with tools to perform research.",
+    description="Investigater agent to know what the current infrastructure and how it is implemented. This is a ReAct agent with tools to understand the infrastructure.",
     runnable=compiled_graph
 )
