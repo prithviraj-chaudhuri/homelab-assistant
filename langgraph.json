@@ -4,6 +4,6 @@
     "root": "."
   },
   "graphs": {
-    "agent": "./main.py:agent"
+    "agent": "./agent.py:agent"
   }
 }
