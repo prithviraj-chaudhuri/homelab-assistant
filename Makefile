@@ -1,0 +1,2 @@
+all:
+	langgraph dev
