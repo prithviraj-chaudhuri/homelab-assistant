@@ -1,6 +1,5 @@
 import os
 from dotenv import load_dotenv
-from langchain_core import messages
 from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import ToolNode
 from langgraph.graph import MessagesState
@@ -12,15 +11,17 @@ load_dotenv()
 PLAN_NODE = 'plan'
 TOOL_NODE = 'tools'
 
-OPENAI_MODEL = os.getenv('OPENAI_MODEL')
-if not OPENAI_MODEL:
+MODEL_API_KEY = os.getenv('MODEL_API_KEY')
+MODEL_MODEL = os.getenv('MODEL_MODEL')
+if not MODEL_MODEL:
     raise RuntimeError(
-        'OPENAI_MODEL is not set. Please define it in your environment or .env file before starting the agent.'
+        'MODEL_MODEL is not set. Please define it in your environment or .env file before starting the agent.'
     )
 
 model = ChatOpenAI(
-    model=OPENAI_MODEL,
-    temperature=0)
+    model=MODEL_MODEL,
+    temperature=0,
+    openai_api_key=MODEL_API_KEY)
 
 model = model.bind_tools(get_tools())
 

@@ -1,3 +1,8 @@
+---
+name: research
+description: Handle topic-driven research requests and delegate execution to a research-agent for community and trend investigation.
+---
+
 # Research Skill (Improved Spec)
 
 ## Purpose

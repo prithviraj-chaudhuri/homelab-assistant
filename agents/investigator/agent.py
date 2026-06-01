@@ -1,7 +1,7 @@
 from deepagents import CompiledSubAgent
 from langgraph.graph import StateGraph, END
 from langgraph.graph import MessagesState
-import agents.researcher.nodes as nodes
+import agents.investigator.nodes as nodes
 
 
 def should_continue(state: MessagesState):
@@ -27,8 +27,9 @@ graph.add_edge(nodes.TOOL_NODE, nodes.PLAN_NODE)
 
 compiled_graph = graph.compile()
 
-research_agent = CompiledSubAgent(
-    name="research-agent",
-    description="Investigater agent to know what the current infrastructure and how it is implemented. This is a ReAct agent with tools to understand the infrastructure.",
+investigator = CompiledSubAgent(
+    name="investigator-agent",
+    description="investigator agent to know what the current infrastructure and how it is implemented." 
+                "This is a ReAct agent with tools to understand the infrastructure.",
     runnable=compiled_graph
 )
