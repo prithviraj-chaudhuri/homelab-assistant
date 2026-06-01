@@ -1,10 +1,11 @@
 import os
 from dotenv import load_dotenv
+from langchain_core import messages
 from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import ToolNode
 from langgraph.graph import MessagesState
 from langchain_core.messages import SystemMessage
-from agents.researcher.tools import get_tools
+from agents.investigator.tools import get_tools
 
 load_dotenv()
 
@@ -26,10 +27,10 @@ model = ChatOpenAI(
 model = model.bind_tools(get_tools())
 
 SYSTEM_PROMPT = (
-    "You are a planner agent designed to analyze user requests and determine when to call tools for research or when to conclude with an answer."
+    "You are a planner agent designed to analyze user requests and determine when to call tools for understanding the infrastructure or when to conclude with an answer."
     "Your primary function is to decide if a tool call is necessary based on the user's input and to create a clear, actionable plan for the next steps. "
     "Analyze the incoming user request, determine whether a tool call is needed, and provide a concise, actionable plan. "
-    "When research is requested, summarize findings clearly and keep the response focused on the specific topic."
+    "When investigation or details about the homelab infrastructure is requested, summarize findings clearly and keep the response focused on the specific topic."
 )
 
 # Define the Reasoning Node (Agent)
