@@ -23,6 +23,7 @@ def read_infrastructure(query: str) -> list:
     """Tool to extract current infrastructure information related to a query.
         Pass in a query and this tool will return relevant information about the current infrastructure based on the query. 
         The tool uses a vector search to find relevant information in the infrastructure collection.
+        Preferably use this tool when the user is asking about specific aspects of the infrastructure or when they are asking for details that may not be commonly known.
 
     Args:
         query: Query to search for infrastructure information
@@ -35,7 +36,7 @@ def read_infrastructure(query: str) -> list:
     result = qdrant_client.query_points(
         collection_name=qdrant_collection,
         query=vector,
-        limit=20
+        limit=10
     )
 
     logger.info(f'Calling mongodb database {mongo_db_name}, collection {mongo_collection_name} for additional infrastructure details')
@@ -67,7 +68,8 @@ def read_infrastructure(query: str) -> list:
 def read_all_infrastructure() -> list:
     """Tool to extract all current infrastructure information. 
         Use this tool to get all the information about the current infrastructure. 
-        This is useful for getting a complete overview of the infrastructure setup."""
+        This is useful for getting a complete overview of the infrastructure setup.
+        DO NOT use this tool if the user is asking about specific aspects of the infrastructure or when they are asking for details that may not be commonly known."""
     
     logger.info('Calling tool read_all_infrastructure')
 
@@ -79,8 +81,10 @@ def read_all_infrastructure() -> list:
 
     collection = db[mongo_collection_name]
     infrastructure_records = list(collection.find({}))
-    mongo_client.close()
+    infrastructure_records = [record for record in infrastructure_records if 'file_path' in record]
+    for record in infrastructure_records:
+        record.pop('content', None)
     return infrastructure_records
 
 def get_tools()->list:
-    return [read_infrastructure]
+    return [read_infrastructure, read_all_infrastructure]
