@@ -5,7 +5,7 @@ from langchain_openai import ChatOpenAI
 from langgraph.prebuilt import ToolNode
 from langgraph.graph import MessagesState
 from langchain_core.messages import SystemMessage
-from agents.investigator.tools import get_tools
+from agents.discovery.tools import get_tools
 
 load_dotenv()
 

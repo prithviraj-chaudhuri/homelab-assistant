@@ -1,4 +1,4 @@
 from agents.researcher.agent import research_agent
-from agents.investigator.agent import investigator
+from agents.discovery.agent import discovery
 
-__all__ = ["research_agent", "investigator"]
+__all__ = ["research_agent", "discovery"]
